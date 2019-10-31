@@ -19,27 +19,23 @@ body {
 }
 
 .main {
-  margin: 50vh 50vw;
 }
 
 .measure {
   margin: 0 auto;
-  min-height: 88vh;
-  min-width: 100vw;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center;
   align-content: center;
 }
 
-.main h1, h2, h3 {
+.main h1, h2 {
   padding: 15px;
-  min-width: 100vw;
-  background-color: rgba(255, 255, 255, 0.36);
 }
 
 a:link, a:visited {
@@ -70,6 +66,20 @@ button:focus {
 
 .policy-img {
   max-width: 180px;
+  width: 40vw;
   height: auto;
   border-radius: 12px;
+}
+
+.policy-detail-container {
+  margin: 0.75em;
+  padding: 0.75em;
+  min-height: 40vh;
+  background-color: rgba(255, 255, 255, 0.36);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.policy-detail {
 }

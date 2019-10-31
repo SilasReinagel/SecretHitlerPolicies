@@ -17,6 +17,7 @@ const createFascistPolicy = () => madLibbed(randomFrom(fascistPolicies)());
 const tokenized = (token, getTokenReplacement) => val => withReplaced(token, getTokenReplacement, val);
 
 const madLibbed = (val) => 
+  withReplaced('[verbpasttense]', verbPastTense,
   withReplaced('[context]', context,
   withReplaced('[discovered]', discovered,
   withReplaced('[prohibitedfrom]', prohibitedfrom, 
@@ -26,7 +27,7 @@ const madLibbed = (val) =>
   withReplaced('[object]', object, 
   withReplaced('[peoplegroup]', peopleGroup, 
   withReplaced('[adjective]', adjective, 
-    val.toLowerCase())))))))));
+    val.toLowerCase()))))))))));
 
 const withReplaced = (token, getTokenReplacement, val) => {
   var result = val;
@@ -44,11 +45,13 @@ const punishment = () => randomFrom(punishments);
 const prohibitedfrom = () => randomFrom(prohibitedfroms);
 const discovered = () => randomFrom(discovereds);
 const context = () => randomFrom(contexts);
+const verbPastTense = () => randomFrom(verbsPastTense);
 
 const fascistPolicies = [
-  () => `[adjective] [peoplegroup] [discovered] [verbcontinuous] with [adjective] [object] will be [punishment]`,
+  () => `[adjective] [peoplegroup] [discovered] [verbcontinuous] with [adjective] [peoplegroup] will be [punishment]`,
   () => `[peoplegroup] [prohibitedfrom] [verb] with [adjective] [peoplegroup]`,
-  () => `[object] [prohibitedfrom] be sold [context]`
+  () => `[object] [prohibitedfrom] be [verbpasttense] [context]`,
+  () => `[peoplegroup] [prohibitedfrom] be [verbcontinuous] while in possession of [object]`,
 ]
 
 const createLiberalPolicy = () => "free donuts for everyone";
@@ -62,22 +65,63 @@ const discovereds = [
   'found',
   'discovered',
   'seen',
-  'caught'
+  'caught',
+  'observed',
+  'noticed',
+  'apprehended'
+]
+
+const verbsPastTense = [
+  'sold',
+  'given away',
+  'dissected',
+  'appreciated',
+  'examined',
+  'dropped',
+  'borrowed',
+  'consumed',
+  'tolerated'
 ]
 
 const objects = [
-  'cats',
   'dishwashers',
   'toasters',
-  'coffee',
+  'coffee cups',
+  'racing cars',
+  'televisions',
+  'cellphones',
+  't-shirts',
+  'skin lotion',
+  'stereos',
+  'trucks',
+  'boxes',
+  'footballs',
+  'measuring tapes',
+  'hair brushes',
+  'wine glasses'
+]
+
+const animals = [
+  'cats',
+  'dogs',
+  'sloths',
+  'giraffes',
   'dinosaurs',
-  'racing cars'
 ]
 
 const contexts = [
   'in public places',
   'at restaurants',
-  'in front yards'
+  'in front yards',
+  'at state parks',
+  'around statues',
+  'near police stations',
+  'in front of parking garages',
+  'on farms',
+  'at polical rallies',
+  'in offices',
+  'near sports events',
+  'during church'
 ]
 
 const verbsContinuous = [
@@ -85,19 +129,22 @@ const verbsContinuous = [
   'dining',
   'partying',
   'collaborating',
-  'flamboyant'
 ]
 
 const verbs = [
   'eat',
   'read',
-  'hunt',
-  'shoot',
+  'go hunting',
+  'go shooting',
   'party',
   'drink'
 ]
 
 const adjectives = ["aggressive","agreeable","ambitious","brave","calm","delightful","eager","faithful","gentle","happy","jolly","kind","lively","nice","obedient","polite","proud","silly","thankful","victorious","witty","wonderful","zealous","angry","bewildered","clumsy","defeated","embarrassed","fierce","grumpy","helpless","itchy","jealous","lazy","mysterious","nervous","obnoxious","panicky","pitiful","repulsive","scary","thoughtless","uptight","worried","broad","chubby","crooked","curved","deep","flat","high","hollow","low","narrow","refined","round","shallow","skinny","square","steep","straight","wide","big","colossal","fat","gigantic","great","huge","immense","large","little","mammoth","massive","microscopic","miniature","petite","puny","scrawny","short","small","tall","teeny","tiny"]
+
+const peopleAdjectives = [
+
+];
 
 const prefixes = [
   'absolutely',
@@ -115,7 +162,20 @@ const peopleGroups = [
   'musicians',
   'doctors',
   'engineers',
-  'grandmothers'
+  'grandmothers',
+  'janitors',
+  'farmers',
+  'lobbyists',
+  'technicians',
+  'police officers',
+  'firefighters',
+  'store owners',
+  'clerks',
+  'soccer players',
+  'fathers',
+  'teachers',
+  'data analysts',
+  'pedestrians'
 ]
 
 const punishments = [
@@ -123,10 +183,18 @@ const punishments = [
   'exiled',
   'heavily taxed',
   'tortured',
+  'flogged',
+  'hung in public',
+  'dismembered',
+  'discredited',
+  'shamed',
+  'spanked'
 ]
 
 const prohibitedfroms = [
   'may no longer',
   'shall not',
-  'are forbbiden from',
+  'must not',
+  'cannot',
+  'may not'
 ]
