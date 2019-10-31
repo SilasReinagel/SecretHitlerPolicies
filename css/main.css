@@ -38,6 +38,10 @@ body {
   padding: 15px;
 }
 
+h3 {
+  font-size: 0.9em;
+}
+
 a:link, a:visited {
   background-color: rgba(255, 255, 255, 0.60);
   color: #000;
@@ -75,6 +79,7 @@ button:focus {
   margin: 0.75em;
   padding: 0.75em;
   min-height: 40vh;
+  max-width: 600px;
   background-color: rgba(255, 255, 255, 0.36);
   display: flex;
   justify-content: center;

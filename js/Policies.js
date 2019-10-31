@@ -12,53 +12,61 @@ const chance = (percent) => Math.random() <= percent;
 const pipeToNext = (a, b) => (arg) => b(a(arg));
 const pipe = (...ops) => ops.reduce(pipeToNext);
 
-const createFascistPolicy = () => madLibbed(randomFrom(fascistPolicies)());
-
 const tokenized = (token, getTokenReplacement) => val => withReplaced(token, getTokenReplacement, val);
 
 const madLibbed = (val) => 
-  withReplaced('[verbpasttense]', verbPastTense,
-  withReplaced('[context]', context,
-  withReplaced('[discovered]', discovered,
-  withReplaced('[prohibitedfrom]', prohibitedfrom, 
-  withReplaced('[punishment]', punishment, 
-  withReplaced('[verbcontinuous]', verbContinuous, 
-  withReplaced('[verb]', verb, 
-  withReplaced('[object]', object, 
-  withReplaced('[peoplegroup]', peopleGroup, 
-  withReplaced('[adjective]', adjective, 
-    val.toLowerCase()))))))))));
+  withReplaced('[animaladjective]', animalAdjectives,
+  withReplaced('[objectadjective]', objectAdjectives,
+  withReplaced('[animal]', animals,
+  withReplaced('[peopleadjective]', peopleAdjectives,
+  withReplaced('[verbpasttense]', verbsPastTense,
+  withReplaced('[verbpossessive]', verbsPossessive,
+  withReplaced('[context]', contexts,
+  withReplaced('[discovered]', discovereds,
+  withReplaced('[prohibitedfrom]', prohibitedfroms, 
+  withReplaced('[punishment]', punishments, 
+  withReplaced('[verbcontinuous]', verbsContinuous, 
+  withReplaced('[verb]', verbs, 
+  withReplaced('[object]', objects, 
+  withReplaced('[peoplegroup]', peopleGroups, 
+  withReplaced('[adjective]', adjectives, 
+    val.toLowerCase())))))))))))))));
 
-const withReplaced = (token, getTokenReplacement, val) => {
+const withReplaced = (token, options, val) => {
   var result = val;
   while (result.includes(token))
-    result = result.replace(token, getTokenReplacement());
+    result = result.replace(token, randomFrom(options));
   return result;
 }
 
-const adjective = () => randomFrom(adjectives);
-const peopleGroup = () => randomFrom(peopleGroups);
-const object = () => randomFrom(objects);
-const verbContinuous = () => randomFrom(verbsContinuous);
-const verb = () => randomFrom(verbs);
-const punishment = () => randomFrom(punishments);
-const prohibitedfrom = () => randomFrom(prohibitedfroms);
-const discovered = () => randomFrom(discovereds);
-const context = () => randomFrom(contexts);
-const verbPastTense = () => randomFrom(verbsPastTense);
-
 const fascistPolicies = [
-  () => `[adjective] [peoplegroup] [discovered] [verbcontinuous] with [adjective] [peoplegroup] will be [punishment]`,
-  () => `[peoplegroup] [prohibitedfrom] [verb] with [adjective] [peoplegroup]`,
+  () => `[peopleadjective] [peoplegroup] [discovered] [verbcontinuous] with [peoplegroup] will be [punishment]`,
+  () => `[peoplegroup] [prohibitedfrom] [verb] with [peopleadjective] [peoplegroup]`,
   () => `[object] [prohibitedfrom] be [verbpasttense] [context]`,
-  () => `[peoplegroup] [prohibitedfrom] be [verbcontinuous] while in possession of [object]`,
+  () => `[peopleadjective] [peoplegroup] [prohibitedfrom] be [verbcontinuous] while [verbpossessive] [object]`,
+  () => `[peoplegroup] [context] [prohibitedfrom] be [verbpossessive] [adjective] [animal]`,
+  () => `[peoplegroup] with [animaladjective] [animal] [prohibitedfrom] [verb] [context]`
 ]
 
-const createLiberalPolicy = () => "free donuts for everyone";
+const liberalPolicies = [
+  () => `[peopleadjective] [peoplegroup] shall be given state-supplied [object]`,
+  () => `[peoplegroup] [context] [verbpossessive] [object] will receive tax credits`,
+  () => `[verbcontinuous] is now permitted for [peopleadjective] [peoplegroup]`
+]
 
 const printPolicy = (policyText) => document.getElementById('policy-detail').innerText = formatted(policyText);
-const printLiberalPolicy = () => printPolicy(createLiberalPolicy());
-const printFascistPolicy = () => printPolicy(createFascistPolicy());
+const printLiberalPolicy = () => printPolicy(madLibbed(randomFrom(liberalPolicies)()));
+const printFascistPolicy = () => printPolicy(madLibbed(randomFrom(fascistPolicies)()));
+
+const verbsPossessive = [
+  'holding',
+  'having',
+  'wielding',
+  'possessing',
+  'carrying',
+  'with',
+  'who own'
+]
 
 const discovereds = [
   'who are found',
@@ -98,8 +106,137 @@ const objects = [
   'footballs',
   'measuring tapes',
   'hair brushes',
-  'wine glasses'
+  'wine glasses',
+  'spoons',
+  'running shoes',
+  'computers',
+  'chairs',
+  'magazines',
+  'guns',
+  'knives',
+  'trophies',
+  'tissues',
+  'quilts',
+  'shoes',
+  'hammers',
+  'picture frames',
+  'dog treats',
+  'smartphones',
+  'board games',
+  'mailboxes',
+  'tea kettles',
+  'globes',
+  'pencils',
+  'filing cabinets',
+  'paperwork',
+  'house plants',
+  'balls of yarn',
 ]
+
+const objectAdjectives = [  
+  "crooked",
+  "curved",
+  "deep",
+  "flat",
+  "high",
+  "hollow",
+  "narrow",
+  "refined",
+  "round",
+  "shallow",
+  "skinny",
+  "square",
+  "steep",
+  "straight",
+  "wide",
+  "big",
+  "colossal",
+  "fat",
+  "gigantic",
+  "great",
+  "huge",
+  "immense",
+  "large",
+  "little",
+  "mammoth",
+  "massive",
+  "miniature",
+  "petite",
+  "puny",
+  "scrawny",
+  "short",
+  "small",
+  "tall",
+  "tiny",
+  "ancient",
+  "early",
+  "fast",
+  "future",
+  "late",
+  "long",
+  "old",
+  "old-fashioned",
+  "prehistoric",
+  "quick",
+  "rapid",
+  "short",
+  "slow",
+  "swift",
+  "young"
+]
+
+const animalAdjectives = [
+  "vicious",
+  "untrained",
+  "chubby",
+  "crooked",
+  "curved",
+  "deep",
+  "flat",
+  "high",
+  "refined",
+  "round",
+  "shallow",
+  "skinny",
+  "square",
+  "steep",
+  "straight",
+  "wide",
+  "big",
+  "colossal",
+  "fat",
+  "gigantic",
+  "great",
+  "huge",
+  "immense",
+  "large",
+  "little",
+  "mammoth",
+  "massive",
+  "miniature",
+  "petite",
+  "puny",
+  "scrawny",
+  "short",
+  "small",
+  "tall",
+  "tiny",
+  "ancient",
+  "early",
+  "fast",
+  "future",
+  "late",
+  "long",
+  "old",
+  "old-fashioned",
+  "prehistoric",
+  "quick",
+  "rapid",
+  "short",
+  "slow",
+  "swift",
+  "young"
+];
 
 const animals = [
   'cats',
@@ -107,6 +244,19 @@ const animals = [
   'sloths',
   'giraffes',
   'dinosaurs',
+  'dragons',
+  'beavers',
+  'wolves',
+  'butterflies',
+  'whales',
+  'dolphins',
+  'sea turtles',
+  'tortoises',
+  'pigeons',
+  'rabbits',
+  'eagles',
+  'foxes',
+  'frogs'
 ]
 
 const contexts = [
@@ -118,10 +268,14 @@ const contexts = [
   'near police stations',
   'in front of parking garages',
   'on farms',
-  'at polical rallies',
+  'at political rallies',
   'in offices',
   'near sports events',
-  'during church'
+  'during church',
+  'on the freeway',
+  'in lobbies',
+  'inside their houses',
+  'near the water'
 ]
 
 const verbsContinuous = [
@@ -129,6 +283,29 @@ const verbsContinuous = [
   'dining',
   'partying',
   'collaborating',
+  'talking',
+  'researching',
+  'studying',
+  'planning',
+  'conversing',
+  'driving',
+  'playing',
+  'fighting',
+  'sleeping',
+  'eating',
+  'gardening',
+  'scheming',
+  'plotting',
+  'cooking',
+  'inventing',
+  'racing',
+  'resting',
+  'complaining',
+  'thinking',
+  'skating',
+  'wrestling',
+  'fishing',
+  'singing'
 ]
 
 const verbs = [
@@ -137,13 +314,77 @@ const verbs = [
   'go hunting',
   'go shooting',
   'party',
-  'drink'
+  'drink',
+  'converse',
+  'sleep',
+  'camp',
+  'race',
+  'rest',
+  'complain',
+  'think',
+  'skate',
+  'fight',
+  'wrestle',
+  'sing',
+  'drive',
+  'play',
+  'cook',
+  'scheme',
+  'consume',
+  'plot',
+  'write',
+  'invent',
+  'protest',
+  'conspire',
+  'ride'
+
 ]
 
 const adjectives = ["aggressive","agreeable","ambitious","brave","calm","delightful","eager","faithful","gentle","happy","jolly","kind","lively","nice","obedient","polite","proud","silly","thankful","victorious","witty","wonderful","zealous","angry","bewildered","clumsy","defeated","embarrassed","fierce","grumpy","helpless","itchy","jealous","lazy","mysterious","nervous","obnoxious","panicky","pitiful","repulsive","scary","thoughtless","uptight","worried","broad","chubby","crooked","curved","deep","flat","high","hollow","low","narrow","refined","round","shallow","skinny","square","steep","straight","wide","big","colossal","fat","gigantic","great","huge","immense","large","little","mammoth","massive","microscopic","miniature","petite","puny","scrawny","short","small","tall","teeny","tiny"]
 
 const peopleAdjectives = [
-
+  "aggressive",
+  "agreeable",
+  "ambitious",
+  "brave",
+  "calm",
+  "delightful",
+  "eager",
+  "faithful",
+  "gentle",
+  "happy",
+  "jolly",
+  "kind",
+  "lively",
+  "nice",
+  "obedient",
+  "polite",
+  "proud",
+  "thankful",
+  "victorious",
+  "witty",
+  "wonderful",
+  "zealous",
+  "angry",
+  "bewildered",
+  "clumsy",
+  "defeated",
+  "embarrassed",
+  "fierce",
+  "grumpy",
+  "helpless",
+  "jealous",
+  "lazy",
+  "mysterious",
+  "nervous",
+  "pessimistic",
+  "panicky",
+  "tall",
+  "creepy",
+  "scary",
+  "thoughtless",
+  "uptight",
+  "worried"
 ];
 
 const prefixes = [
@@ -175,18 +416,26 @@ const peopleGroups = [
   'fathers',
   'teachers',
   'data analysts',
-  'pedestrians'
+  'pedestrians',
+  'children',
+  'toddlers',
+  'cat-lovers',
+  'fugitives',
+  'managers',
+  'taxpayers',
+  'artists',
+  'painters'
 ]
 
 const punishments = [
   'thrown into jail',
-  'exiled',
+  'exiled from the country',
   'heavily taxed',
   'tortured',
   'flogged',
   'hung in public',
   'dismembered',
-  'discredited',
+  'publically humiliated',
   'shamed',
   'spanked'
 ]
@@ -198,3 +447,5 @@ const prohibitedfroms = [
   'cannot',
   'may not'
 ]
+
+window.onload = printFascistPolicy;
