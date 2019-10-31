@@ -67,13 +67,14 @@ a:hover, a:active {
   background-color: rgba(255, 255, 255, 1.0);
 }
 
-button {
+button,
+button:active {
+  min-height: 220px;
   background-color: rgba(0, 0, 0, 0);
   border: 0px;
 }
 
 button:hover,
-button:active,
 button:focus {
   filter: brightness(120%);
 }
@@ -89,16 +90,17 @@ button:focus {
 .policy-detail-container {
   margin: 0.7em auto 0.7em auto;
   padding: 0.5em;
-  min-height: 30vh;
+  min-height: 18vh;
   max-width: 600px;
   min-width: 300px;
-  background-color: rgba(255, 255, 255, 0.36);
   display: flex;
   justify-content: center;
   align-content: center;
+  background-color: rgba(255, 255, 255, 0.36);
 }
 
 .policy-detail {
+  max-width: 300px;
 }
 
 #links {

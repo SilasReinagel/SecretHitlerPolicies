@@ -41,9 +41,9 @@ const withReplaced = (token, options, val) => {
 
 const fascistPolicies = [
   () => `[peopleadjective] [peoplegroup] [discovered] [verbcontinuous] with [peoplegroup] will be [punishment]`,
-  () => `[peoplegroup] [prohibitedfrom] [verb] with [peopleadjective] [peoplegroup]`,
+  () => `[peopleadjective] [peoplegroup] [prohibitedfrom] [verb] with [peoplegroup]`,
   () => `[object] [prohibitedfrom] be [verbpasttense] [context]`,
-  () => `[peopleadjective] [peoplegroup] [prohibitedfrom] be [verbcontinuous] while [verbpossessive] [object]`,
+  () => `[peopleadjective] [peoplegroup] [prohibitedfrom] be [verbcontinuous] while [verbpossessive] their [object]`,
   () => `[peoplegroup] [context] [prohibitedfrom] be [verbpossessive] [adjective] [animal]`,
   () => `[peoplegroup] with [animaladjective] [animal] [prohibitedfrom] [verb] [context]`
 ]
@@ -65,7 +65,12 @@ const verbsPossessive = [
   'possessing',
   'carrying',
   'with',
-  'who own'
+  'own'
+]
+
+const animalVerbsPossessive = [
+  'be accompanied by',
+  ''
 ]
 
 const discovereds = [
@@ -87,8 +92,11 @@ const verbsPastTense = [
   'examined',
   'dropped',
   'borrowed',
-  'consumed',
-  'tolerated'
+  'tolerated',
+  'funded',
+  'sponsored',
+  'supported',
+  'publicized'
 ]
 
 const objects = [
@@ -275,7 +283,9 @@ const contexts = [
   'on the freeway',
   'in lobbies',
   'inside their houses',
-  'near the water'
+  'near rivers',
+  'by the ocean',
+  'while inside state housing'
 ]
 
 const verbsContinuous = [
@@ -330,7 +340,6 @@ const verbs = [
   'play',
   'cook',
   'scheme',
-  'consume',
   'plot',
   'write',
   'invent',
@@ -343,12 +352,12 @@ const verbs = [
 const adjectives = ["aggressive","agreeable","ambitious","brave","calm","delightful","eager","faithful","gentle","happy","jolly","kind","lively","nice","obedient","polite","proud","silly","thankful","victorious","witty","wonderful","zealous","angry","bewildered","clumsy","defeated","embarrassed","fierce","grumpy","helpless","itchy","jealous","lazy","mysterious","nervous","obnoxious","panicky","pitiful","repulsive","scary","thoughtless","uptight","worried","broad","chubby","crooked","curved","deep","flat","high","hollow","low","narrow","refined","round","shallow","skinny","square","steep","straight","wide","big","colossal","fat","gigantic","great","huge","immense","large","little","mammoth","massive","microscopic","miniature","petite","puny","scrawny","short","small","tall","teeny","tiny"]
 
 const peopleAdjectives = [
+  "workaholic",
   "aggressive",
   "agreeable",
   "ambitious",
   "brave",
   "calm",
-  "delightful",
   "eager",
   "faithful",
   "gentle",
@@ -356,7 +365,6 @@ const peopleAdjectives = [
   "jolly",
   "kind",
   "lively",
-  "nice",
   "obedient",
   "polite",
   "proud",
@@ -444,8 +452,10 @@ const prohibitedfroms = [
   'may no longer',
   'shall not',
   'must not',
-  'cannot',
-  'may not'
+  'shall no longer',
+  'may not',
+  'must not',
+  'henceforth may not'
 ]
 
 window.onload = printFascistPolicy;
