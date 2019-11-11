@@ -15,6 +15,7 @@ const pipe = (...ops) => ops.reduce(pipeToNext);
 const tokenized = (token, getTokenReplacement) => val => withReplaced(token, getTokenReplacement, val);
 
 const madLibbed = (val) => 
+  withReplaced('[objectverb]', objectVerbs,
   withReplaced('[animaladjective]', animalAdjectives,
   withReplaced('[objectadjective]', objectAdjectives,
   withReplaced('[animal]', animals,
@@ -30,7 +31,7 @@ const madLibbed = (val) =>
   withReplaced('[object]', objects, 
   withReplaced('[peoplegroup]', peopleGroups, 
   withReplaced('[adjective]', adjectives, 
-    val.toLowerCase())))))))))))))));
+    val.toLowerCase()))))))))))))))));
 
 const withReplaced = (token, options, val) => {
   var result = val;
@@ -42,9 +43,9 @@ const withReplaced = (token, options, val) => {
 const fascistPolicies = [
   () => `[peopleadjective] [peoplegroup] [discovered] [verbcontinuous] with [peoplegroup] will be [punishment]`,
   () => `[peopleadjective] [peoplegroup] [prohibitedfrom] [verb] with [peoplegroup]`,
-  () => `[object] [prohibitedfrom] be [verbpasttense] [context]`,
-  () => `[peopleadjective] [peoplegroup] [prohibitedfrom] be [verbcontinuous] while [verbpossessive] their [object]`,
-  () => `[peoplegroup] [context] [prohibitedfrom] be [verbpossessive] [adjective] [animal]`,
+  () => `[object] [prohibitedfrom] [verb] [context]`,
+  () => `[peopleadjective] [peoplegroup] [prohibitedfrom] [verb] while [objectVerb] their [object]`,
+  () => `[peoplegroup] [context] [prohibitedfrom] [verb] with [adjective] [animal]`,
   () => `[peoplegroup] with [animaladjective] [animal] [prohibitedfrom] [verb] [context]`
 ]
 
@@ -54,23 +55,26 @@ const liberalPolicies = [
   () => `[verbcontinuous] is now permitted for [peopleadjective] [peoplegroup]`
 ]
 
-const printPolicy = (policyText) => document.getElementById('policy-detail').innerText = formatted(policyText);
-const printLiberalPolicy = () => printPolicy(madLibbed(randomFrom(liberalPolicies)()));
-const printFascistPolicy = () => printPolicy(madLibbed(randomFrom(fascistPolicies)()));
+const createFascistPolicy = () => formatted(madLibbed(randomFrom(fascistPolicies)()));
+const createLiberalPolicy = () => formatted(madLibbed(randomFrom(liberalPolicies)()));
+
+const outputPolicyToElement = (policyText) => document.getElementById('policy-detail').innerText = policyText;
+const printLiberalPolicy = () => outputPolicyToElement(createLiberalPolicy());
+const printFascistPolicy = () => outputPolicyToElement(createFascistPolicy());
 
 const verbsPossessive = [
+  'with'
+]
+
+const objectVerbs = [
   'holding',
-  'having',
-  'wielding',
-  'possessing',
   'carrying',
-  'with',
-  'own'
+  'wielding',
+  'owning'
 ]
 
 const animalVerbsPossessive = [
-  'be accompanied by',
-  ''
+  'be accompanied by'
 ]
 
 const discovereds = [
@@ -285,7 +289,8 @@ const contexts = [
   'inside their houses',
   'near rivers',
   'by the ocean',
-  'while inside state housing'
+  'while inside state housing',
+  'in tall buildings'
 ]
 
 const verbsContinuous = [
@@ -345,8 +350,9 @@ const verbs = [
   'invent',
   'protest',
   'conspire',
-  'ride'
-
+  'ride',
+  'draw',
+  'hide',
 ]
 
 const adjectives = ["aggressive","agreeable","ambitious","brave","calm","delightful","eager","faithful","gentle","happy","jolly","kind","lively","nice","obedient","polite","proud","silly","thankful","victorious","witty","wonderful","zealous","angry","bewildered","clumsy","defeated","embarrassed","fierce","grumpy","helpless","itchy","jealous","lazy","mysterious","nervous","obnoxious","panicky","pitiful","repulsive","scary","thoughtless","uptight","worried","broad","chubby","crooked","curved","deep","flat","high","hollow","low","narrow","refined","round","shallow","skinny","square","steep","straight","wide","big","colossal","fat","gigantic","great","huge","immense","large","little","mammoth","massive","microscopic","miniature","petite","puny","scrawny","short","small","tall","teeny","tiny"]
@@ -432,7 +438,42 @@ const peopleGroups = [
   'managers',
   'taxpayers',
   'artists',
-  'painters'
+  'painters',
+  'grocery clerks',
+  'gardeners',
+  'mothers',
+  'race car drivers',
+  'sports stars',
+  'animal tamers',
+  'tollbooth attendants',
+  'academy instructors',
+  'superintendents',
+  'supervisors',
+  'team leads',
+  'safety officers',
+  'auditors',
+  'repairmen',
+  'baristas',
+  'gourmet chefs',
+  'CEOs',
+  'stock traders',
+  'wealthy heiresses',
+  'singles',
+  'introverts',
+  'extroverts',
+  'landlords',
+  'fitness trainers',
+  'bloggers',
+  'newscasters',
+  'programmers',
+  'church pastors',
+  'secretaries',
+  'jockeys',
+  'bookies',
+  'drug dealers',
+  'pharmacists',
+  'user experience designers',
+  'quality testers'
 ]
 
 const punishments = [
@@ -445,7 +486,9 @@ const punishments = [
   'dismembered',
   'publically humiliated',
   'shamed',
-  'spanked'
+  'spanked',
+  'sentenced to community service',
+  'penalized'
 ]
 
 const prohibitedfroms = [
@@ -458,4 +501,8 @@ const prohibitedfroms = [
   'henceforth may not'
 ]
 
-window.onload = printFascistPolicy;
+const isBrowser = (typeof window !== 'undefined');
+if (isBrowser)
+  window.onload = printFascistPolicy;
+else
+  console.log(createFascistPolicy());
